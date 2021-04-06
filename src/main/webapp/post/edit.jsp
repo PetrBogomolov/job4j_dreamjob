@@ -25,7 +25,7 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новая вакансия.
+                Новая вакансия
             </div>
             <div class="card-body">
                 <form>
