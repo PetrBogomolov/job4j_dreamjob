@@ -5,19 +5,19 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>PostAddServlet</servlet-name>
-    <servlet-class>ru.job4j.dreamjob.servlet.PostAddServlet</servlet-class>
+    <servlet-name>PostSave</servlet-name>
+    <servlet-class>ru.job4j.dreamjob.servlet.PostSave</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CandidateAddServlet</servlet-name>
-    <servlet-class>ru.job4j.dreamjob.servlet.CandidateAddServlet</servlet-class>
+    <servlet-name>CandidateSave</servlet-name>
+    <servlet-class>ru.job4j.dreamjob.servlet.CandidateSave</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PostAddServlet</servlet-name>
+    <servlet-name>PostSave</servlet-name>
     <url-pattern>/post/save</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>CandidateAddServlet</servlet-name>
+    <servlet-name>CandidateSave</servlet-name>
     <url-pattern>/candidate/save</url-pattern>
   </servlet-mapping>
 </web-app>
