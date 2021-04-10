@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.store;
+package ru.job4j.dreamjob.stores;
 
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;
@@ -7,14 +7,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Store {
-    private static final Store INST = new Store();
+public class MemStore {
+    private static final MemStore INST = new MemStore();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private static AtomicInteger POST_ID = new AtomicInteger(4);
     private static AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
 
-    public Store() {
+    public MemStore() {
         posts.put(1, new Post(1, "Junior Java Job", "Need Junior"));
         posts.put(2, new Post(2, "Middle Java Job", "Need Middle"));
         posts.put(3, new Post(3, "Senior Java Job", "Need Senior"));
@@ -23,7 +23,7 @@ public class Store {
         candidates.put(3, new Candidate(3, "Senior Java сandidate"));
     }
 
-    public static Store instOf() {
+    public static MemStore instOf() {
         return INST;
     }
 
@@ -49,6 +49,5 @@ public class Store {
 
     public Post findById(int id) {
         return posts.get(id);
-
     }
 }
