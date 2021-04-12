@@ -1,6 +1,8 @@
 package ru.job4j.dreamjob.stores;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.job4j.dreamjob.Store;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;
@@ -15,6 +17,7 @@ import java.util.Properties;
 
 public class PsqlStore implements Store {
 
+    private static final Logger LOG = LogManager.getLogger(PsqlStore.class.getName());
     private final BasicDataSource pool = new BasicDataSource();
 
     private PsqlStore() {
@@ -24,7 +27,7 @@ public class PsqlStore implements Store {
             config.load(io);
             Class.forName(config.getProperty("driver"));
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.error(e.toString(), e);
         }
         pool.setDriverClassName(config.getProperty("driver"));
         pool.setUrl(config.getProperty("url"));
@@ -58,8 +61,8 @@ public class PsqlStore implements Store {
                    allPosts.add(post);
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
         return allPosts;
     }
@@ -77,8 +80,8 @@ public class PsqlStore implements Store {
                     ));
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
         return allCandidates;
     }
@@ -107,8 +110,8 @@ public class PsqlStore implements Store {
                     post.setId(id.getInt(1));
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
     }
 
@@ -121,8 +124,8 @@ public class PsqlStore implements Store {
             statement.setString(2, post.getDescription());
             statement.setInt(3, post.getId());
             statement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
     }
 
@@ -140,13 +143,13 @@ public class PsqlStore implements Store {
                     candidate.setId(id.getInt(1));
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
     }
 
     @Override
-    public Post findById(int id) {
+    public Post findByIdPost(int id) {
         Post post = new Post();
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement(
@@ -160,9 +163,28 @@ public class PsqlStore implements Store {
                     post.setCreated(resultSet.getDate("created"));
                 }
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
         }
         return post;
+    }
+
+    @Override
+    public Candidate findByIdCandidate(int id) {
+        Candidate candidate = new Candidate();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
+                     "SELECT * FROM candidates WHERE id = ?")) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    candidate.setId(resultSet.getInt("id"));
+                    candidate.setName(resultSet.getString("name"));
+                }
+            }
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
+        }
+        return candidate;
     }
 }

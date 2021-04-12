@@ -47,7 +47,12 @@ public class MemStore implements Store {
     }
 
     @Override
-    public Post findById(int id) {
+    public Post findByIdPost(int id) {
         return posts.get(id);
+    }
+
+    @Override
+    public Candidate findByIdCandidate(int id) {
+        return candidates.get(id);
     }
 }
