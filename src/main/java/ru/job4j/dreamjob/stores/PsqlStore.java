@@ -131,6 +131,14 @@ public class PsqlStore implements Store {
 
     @Override
     public void saveCandidate(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            createCandidate(candidate);
+        } else {
+            updateCandidate(candidate);
+        }
+    }
+
+    private void createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement(
                      "INSERT INTO candidates (name) VALUES (?)",
@@ -143,6 +151,19 @@ public class PsqlStore implements Store {
                     candidate.setId(id.getInt(1));
                 }
             }
+        } catch (SQLException se) {
+            LOG.error(se.toString(), se);
+        }
+    }
+
+    private void updateCandidate(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement statement = cn.prepareStatement(
+                     "UPDATE candidates SET name = (?) WHERE id = (?)"
+             )) {
+            statement.setString(1, candidate.getName());
+            statement.setInt(2, candidate.getId());
+            statement.executeUpdate();
         } catch (SQLException se) {
             LOG.error(se.toString(), se);
         }
