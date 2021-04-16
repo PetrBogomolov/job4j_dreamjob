@@ -11,13 +11,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
     <title>Работа мечты</title>
 </head>
 <body>
@@ -32,7 +32,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Имена</th>
+                        <th scope="col">Имена</th><th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,7 +42,22 @@
                             <a href='<c:url value="candidate/edit.jsp?id=${candidate.id}"/>'>
                                 <i class="fa fa-edit mr-3"></i>
                             </a>
+                            <a href='<c:url value="deleteCandidate?id=${candidate.id}"/>'>
+                                <i class="bi bi-trash"></i>
+                            </a>
                             <c:out value="${candidate.name}"/>
+                        </td>
+                        <td>
+                            <img src='<c:url value="/download?name=${candidate.id}"/>' width="50px" height="50px"/>
+                            <a href='<c:url value="photoUpload.jsp?id=${candidate.id}"/>'>
+                                <i class="bi bi-file-earmark-plus"></i>
+                            </a>
+                            <a href='<c:url value="/deleteImage?id=${candidate.id}"/>'>
+                                <i class="bi bi-trash"></i>
+                            </a>
+                            <a href='<c:url value="/download?name=${candidate.id}"/>'>
+                                <i class="bi bi-download"></i>
+                            </a>
                         </td>
                     </tr>
                     </c:forEach>
