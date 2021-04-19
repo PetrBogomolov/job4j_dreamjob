@@ -26,7 +26,13 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Кандидаты
+                <table>
+                    <th>Кандидаты</th>
+                    <th>
+                        <a class="nav-link" href="<%=request.getContextPath()%>/index.do">
+                            <i class="bi bi-house"></i>
+                        </a></th>
+                </table>
             </div>
             <div class="card-body">
                 <table class="table">
