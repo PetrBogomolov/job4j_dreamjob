@@ -262,36 +262,4 @@ public class PsqlStore implements Store {
         }
         return user;
     }
-
-    @Override
-    public Collection<User> findAllUsers() {
-        List<User> allUsers = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement("SELECT * FROM users")) {
-            try (ResultSet it = statement.executeQuery()) {
-                while (it.next()) {
-                    User user = new User();
-                    user.setId(it.getInt("id"));
-                    user.setName(it.getString("name"));
-                    user.setEmail(it.getString("email"));
-                    allUsers.add(user);
-                }
-            }
-        } catch (SQLException se) {
-            LOG.error(se.toString(), se);
-        }
-        return allUsers;
-    }
-
-    @Override
-    public void deleteUser(String email) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement statement = cn.prepareStatement(
-                     "DELETE FROM users WHERE email = ?")) {
-            statement.setString(1, email);
-            statement.executeUpdate();
-        } catch (SQLException se) {
-            LOG.error(se.toString(), se);
-        }
-    }
 }

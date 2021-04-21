@@ -72,14 +72,4 @@ public class MemStore implements Store {
     public User findUserByEmail(String email) {
         return users.get(email);
     }
-
-    @Override
-    public Collection<User> findAllUsers() {
-        return users.values();
-    }
-
-    @Override
-    public void deleteUser(String email) {
-        users.remove(email);
-    }
 }

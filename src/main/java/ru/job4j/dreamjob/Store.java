@@ -24,8 +24,4 @@ public interface Store {
     void saveUser(User user);
 
     User findUserByEmail(String email);
-
-    Collection<User> findAllUsers();
-
-    void deleteUser(String email);
 }
