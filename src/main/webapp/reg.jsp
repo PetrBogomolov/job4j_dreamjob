@@ -21,6 +21,15 @@
 </head>
 <body>
 <div class="container pt-3">
+    <div class="container">
+        <div class="row">
+            <c:if test="${not empty error}">
+                <div style="color:red; font-weight: bold; margin: 30px 0;">
+                    <c:out value="${error}"/>
+                </div>
+            </c:if>
+        </div>
+    </div>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">

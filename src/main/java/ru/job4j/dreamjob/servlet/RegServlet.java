@@ -2,7 +2,6 @@ package ru.job4j.dreamjob.servlet;
 
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.stores.PsqlStore;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +16,16 @@ public class RegServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PsqlStore.instOf().saveUser(
-                new User(0, req.getParameter("name"), req.getParameter("email"), req.getParameter("password"))
-        );
-        resp.sendRedirect(req.getContextPath() + "/posts.do");
+        String email = req.getParameter("email");
+        User byEmail = PsqlStore.instOf().findUserByEmail(email);
+        if (byEmail != null) {
+            req.setAttribute("error",  "Пользователь с данным email уже зарегистрирован");
+            req.getRequestDispatcher("reg.jsp").forward(req, resp);
+        } else {
+            PsqlStore.instOf().saveUser(
+                    new User(0, req.getParameter("name"), req.getParameter("email"), req.getParameter("password"))
+            );
+            resp.sendRedirect(req.getContextPath() + "/posts.do");
+        }
     }
 }

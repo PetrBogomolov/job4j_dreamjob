@@ -171,16 +171,18 @@ public class PsqlStore implements Store {
 
     @Override
     public Post findByIdPost(int id) {
-        Post post = new Post();
+        Post post = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement(
                      "SELECT * FROM posts WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    post.setId(resultSet.getInt("id"));
-                    post.setName(resultSet.getString("name"));
-                    post.setDescription(resultSet.getString("description"));
+                    post = new Post(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("description")
+                    );
                     post.setCreated(resultSet.getDate("created"));
                 }
             }
@@ -192,15 +194,17 @@ public class PsqlStore implements Store {
 
     @Override
     public Candidate findByIdCandidate(int id) {
-        Candidate candidate = new Candidate();
+        Candidate candidate = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement(
                      "SELECT * FROM candidates WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    candidate.setId(resultSet.getInt("id"));
-                    candidate.setName(resultSet.getString("name"));
+                    candidate = new Candidate(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name")
+                    );
                 }
             }
         } catch (SQLException se) {
@@ -244,17 +248,19 @@ public class PsqlStore implements Store {
 
     @Override
     public User findUserByEmail(String email) {
-        User user = new User();
+        User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement statement = cn.prepareStatement(
                      "SELECT * FROM users WHERE email = ?")) {
             statement.setString(1, email);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    user.setId(resultSet.getInt("id"));
-                    user.setName(resultSet.getString("name"));
-                    user.setEmail(resultSet.getString("email"));
-                    user.setPassword(resultSet.getString("password"));
+                    user = new User(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password")
+                    );
                 }
             }
         } catch (SQLException se) {
