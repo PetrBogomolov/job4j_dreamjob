@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob;
+package ru.job4j.dreamjob.stores;
 
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;

@@ -3,7 +3,6 @@ package ru.job4j.dreamjob.stores;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import ru.job4j.dreamjob.Store;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.model.User;

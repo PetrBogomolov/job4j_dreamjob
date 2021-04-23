@@ -1,10 +1,11 @@
 package ru.job4j.dreamjob.stores;
 
-import ru.job4j.dreamjob.Store;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.model.User;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,8 +15,8 @@ public class MemStore implements Store {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final Map<String, User> users = new ConcurrentHashMap<>();
-    private static final AtomicInteger POST_ID = new AtomicInteger(4);
-    private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
+    private static final AtomicInteger POST_ID = new AtomicInteger();
+    private static final AtomicInteger CANDIDATE_ID = new AtomicInteger();
 
     public MemStore() {
     }
@@ -44,7 +45,9 @@ public class MemStore implements Store {
 
     @Override
     public void saveCandidate(Candidate candidate) {
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
+        if (candidate.getId() == 0) {
+            candidate.setId(CANDIDATE_ID.incrementAndGet());
+        }
         candidates.put(candidate.getId(), candidate);
     }
 
@@ -60,7 +63,7 @@ public class MemStore implements Store {
 
     @Override
     public void deleteCandidate(int id) {
-        candidates.remove(id);
+       candidates.remove(id);
     }
 
     @Override
@@ -70,6 +73,14 @@ public class MemStore implements Store {
 
     @Override
     public User findUserByEmail(String email) {
-        return users.get(email);
+        User result = null;
+        List<User> list = new ArrayList<>(users.values());
+        for (User user : list) {
+            if (user.getEmail().equals(email)) {
+                result = user;
+                break;
+            }
+        }
+        return result;
     }
 }
