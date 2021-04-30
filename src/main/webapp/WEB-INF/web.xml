@@ -55,6 +55,14 @@
     <servlet-name>GreetingServlet</servlet-name>
     <servlet-class>ru.job4j.dreamjob.servlet.GreetingServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DeletePost</servlet-name>
+    <servlet-class>ru.job4j.dreamjob.servlet.DeletePost</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CityServlet</servlet-name>
+    <servlet-class>ru.job4j.dreamjob.servlet.CityServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>PostServlet</servlet-name>
@@ -95,6 +103,14 @@
   <servlet-mapping>
     <servlet-name>GreetingServlet</servlet-name>
     <url-pattern>/greet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePost</servlet-name>
+    <url-pattern>/deletePost</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CityServlet</servlet-name>
+    <url-pattern>/cities</url-pattern>
   </servlet-mapping>
 
 </web-app>

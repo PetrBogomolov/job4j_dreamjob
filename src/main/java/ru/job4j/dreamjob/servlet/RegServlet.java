@@ -16,14 +16,14 @@ public class RegServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
+        String email = req.getParameter("emailUser");
         User byEmail = PsqlStore.instOf().findUserByEmail(email);
         if (byEmail != null) {
             req.setAttribute("error",  "Пользователь с данным email уже зарегистрирован");
             req.getRequestDispatcher("reg.jsp").forward(req, resp);
         } else {
             PsqlStore.instOf().saveUser(
-                    new User(0, req.getParameter("name"), req.getParameter("email"), req.getParameter("password"))
+                    new User(0, req.getParameter("nameUser"), email, req.getParameter("passwordUser"))
             );
             resp.sendRedirect(req.getContextPath() + "/posts.do");
         }

@@ -52,7 +52,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Имена</th><th scope="col">Фото</th>
+                        <th scope="col">Имя</th><th scope="col">Город</th><th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,6 +66,9 @@
                                 <i class="bi bi-trash"></i>
                             </a>
                             <c:out value="${candidate.name}"/>
+                        </td>
+                        <td>
+                            <c:out value="${candidate.city}"/>
                         </td>
                         <td>
                             <img src='<c:url value="/download?name=${candidate.id}"/>' width="50px" height="50px"/>

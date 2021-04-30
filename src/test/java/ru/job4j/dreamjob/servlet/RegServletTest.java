@@ -29,9 +29,9 @@ public class RegServletTest {
         when(PsqlStore.instOf()).thenReturn(store);
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
-        when(req.getParameter("name")).thenReturn("name");
-        when(req.getParameter("email")).thenReturn("email@");
-        when(req.getParameter("password")).thenReturn("password");
+        when(req.getParameter("nameUser")).thenReturn("name");
+        when(req.getParameter("emailUser")).thenReturn("email@");
+        when(req.getParameter("passwordUser")).thenReturn("password");
         new RegServlet().doPost(req, resp);
         assertThat(store.findUserByEmail("email@").getName(), is("name"));
     }

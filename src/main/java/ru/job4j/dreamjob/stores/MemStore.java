@@ -1,6 +1,7 @@
 package ru.job4j.dreamjob.stores;
 
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.model.User;
 import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class MemStore implements Store {
     }
 
     @Override
+    public Collection<City> findAllCities() {
+        return null;
+    }
+
+    @Override
     public void savePost(Post post) {
         if (post.getId() == 0) {
             post.setId(POST_ID.incrementAndGet());
@@ -67,6 +73,11 @@ public class MemStore implements Store {
     }
 
     @Override
+    public void deletePost(int id) {
+
+    }
+
+    @Override
     public void saveUser(User user) {
         users.putIfAbsent(user.getName(), user);
     }
@@ -82,5 +93,10 @@ public class MemStore implements Store {
             }
         }
         return result;
+    }
+
+    @Override
+    public City findCityById(int id) {
+        return null;
     }
 }
