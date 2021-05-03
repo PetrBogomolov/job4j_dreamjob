@@ -42,7 +42,7 @@
                     for (let i = 0; i < data.length; i++) {
                         cities += "<option value=" + data[i]['id'] + ">" + data[i]['name'] + "</option>";
                     }
-                    $('#city').html(cities);
+                    $("#city").html(cities).prop("selectedIndex", -1);
                 }
             })
         })
@@ -74,10 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label for="city">Город</label>
-                        <select class="custom-select" id="city" name="city">
-                            <option value="null">не выбрано</option>
-                            <option value="<%=candidate.getCityId()%>" selected><%=candidate.getCity()%></option>
-                        </select>
+                        <select class="custom-select" id="city" name="city" required></select>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>
