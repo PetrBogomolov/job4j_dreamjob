@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group">
                         <label for="city">Город</label>
-                        <select class="custom-select" id="city" name="city" required></select>
+                        <select id="city" name="city" required></select>
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="return validate()">Сохранить</button>
                 </form>

@@ -57,3 +57,7 @@ Travis CI, CodeCov, CheckStyle
 ![ScreenShot](images/candidates2.png)
 
 ![ScreenShot](images/candidates3.png)
+
+![ScreenShot](images/candidates4.png)
+
+![ScreenShot](images/candidates5.png)
